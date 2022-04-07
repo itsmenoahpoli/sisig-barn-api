@@ -22,6 +22,7 @@ Route::group(['prefix' => 'v1'], function() {
         });
     });
 
+    Route::get('products/{category}', [ProductsController::class, 'getProductsByCategory'])->name('api.products.get-by-category');
     Route::apiResources([
         'products' => ProductsController::class,
         'orders' => OrdersController::class,

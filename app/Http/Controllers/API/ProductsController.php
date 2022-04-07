@@ -111,4 +111,17 @@ class ProductsController extends Controller
             return response()->json($e->getMessage(), 500);
         }
     }
+
+    public function getProductsByCategory($category)
+    {
+        try
+        {
+            $data = $this->model->where('category', $category)->get();
+
+            return response()->json($data, 200);
+        } catch (Exception $e)
+        {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
 }
