@@ -27,7 +27,7 @@ class EmployeesController extends Controller
     {
         try
         {
-            $data = $this->model->orderBy('id', 'desc')->get();
+            $data = $this->model->orderBy('name')->get();
 
             return response()->json($data, 200);
         } catch (Exception $e)

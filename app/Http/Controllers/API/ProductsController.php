@@ -44,13 +44,21 @@ class ProductsController extends Controller
     {
         try
         {
-            $data = $this->model->create($request->all());
-
             $imgName = time().$request->name.'.'.$request->image->getClientOriginalExtension();
             $request->image->move(
                 public_path('/product-images'),
                 $imgName
             );
+
+            $imageUrl = env('APP_URL').'/product-images/165639470812323213.png';
+
+            $data = $this->model->create([
+                'name' => $request->name,
+                'category' => $request->category,
+                'price' => $request->price,
+                'description' => $request->description,
+                'image_url' => $imageUrl
+            ]);
 
             return response()->json($data, 201);
         } catch (Exception $e)
