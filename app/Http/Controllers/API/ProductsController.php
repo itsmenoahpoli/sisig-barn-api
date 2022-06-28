@@ -50,7 +50,7 @@ class ProductsController extends Controller
                 $imgName
             );
 
-            $imageUrl = env('APP_URL').'/product-images/165639470812323213.png';
+            $imageUrl = env('APP_URL').'/product-images'.'/'.$imgName;
 
             $data = $this->model->create([
                 'name' => $request->name,
