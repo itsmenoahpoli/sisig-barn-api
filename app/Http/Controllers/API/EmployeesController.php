@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Employees\Employee;
 
 use Str;
+use Validator;
 
 class EmployeesController extends Controller
 {
@@ -46,6 +47,17 @@ class EmployeesController extends Controller
     {
         try
         {
+            $validator = Validator::make($request->all(), [
+                'name' => 'unique:employees'
+            ]); 
+
+            if ($validator->fails()) {
+                return response()->json(
+                    'Employee record already exist',
+                    400
+                );
+            }
+
             $employeeNo = strtoupper('EMPLOYEE-'.Str::random(10));
 
             $data = $this->model->create([
