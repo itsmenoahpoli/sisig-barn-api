@@ -15,7 +15,7 @@ class ProductsController extends Controller
 
     public function __construct()
     {
-        $this->model = Product::query()->with('product_categories');
+        $this->model = Product::query()->with('product_category');
     }
 
     /**
