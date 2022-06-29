@@ -5,15 +5,15 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Products\Product;
+use App\Models\Products\ProductCategory;
 
-class ProductsController extends Controller
+class ProductCategoriesController extends Controller
 {
     protected $model;
 
     public function __construct()
     {
-        $this->model = Product::query();
+        $this->model = ProductCategory::query();
     }
 
     /**
@@ -44,21 +44,8 @@ class ProductsController extends Controller
     {
         try
         {
-            $imgName = time().$request->name.'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(
-                public_path('/product-images'),
-                $imgName
-            );
 
-            $imageUrl = env('APP_URL').'/product-images'.'/'.$imgName;
-
-            $data = $this->model->create([
-                'product_category_id' => $request->product_category_id,
-                'name' => $request->name,
-                'price' => $request->price,
-                'description' => $request->description,
-                'image_url' => $imageUrl
-            ]);
+            $data = $this->model->create($request->all());
 
             return response()->json($data, 201);
         } catch (Exception $e)
@@ -120,19 +107,6 @@ class ProductsController extends Controller
             $data = $this->model->findOrFail($id)->delete();
 
             return response()->json($data, 204);
-        } catch (Exception $e)
-        {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
-
-    public function getProductsByCategory($category)
-    {
-        try
-        {
-            $data = $this->model->where('category', $category)->get();
-
-            return response()->json($data, 200);
         } catch (Exception $e)
         {
             return response()->json($e->getMessage(), 500);
