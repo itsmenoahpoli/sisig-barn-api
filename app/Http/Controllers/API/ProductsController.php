@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 
 use App\Models\Products\Product;
 
+use Validator;
+
 class ProductsController extends Controller
 {
     protected $model;
 
     public function __construct()
     {
-        $this->model = Product::query();
+        $this->model = Product::query()->with('product_categories');
     }
 
     /**
@@ -43,7 +45,18 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         try
-        {
+        {       
+            $validator = Validator::make($request->all(), [
+                'name' => 'unique:products'
+            ]); 
+
+            if ($validator->fails()) {
+                return response()->json(
+                    'Product already exist',
+                    400
+                );
+            }
+
             $imgName = time().$request->name.'.'.$request->image->getClientOriginalExtension();
             $request->image->move(
                 public_path('/product-images'),
