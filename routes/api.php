@@ -14,7 +14,7 @@ use App\Http\Controllers\API\EmployeesController;
 use App\Http\Controllers\API\EmployeePayslipsController;
 
 
-Route::group(['prefix' => 'v1'], function() {
+Route::group(['prefix' => 'v1', 'middleware' => 'cors'], function() {
     Route::group(['prefix' => 'auth'], function() {
         Route::post('login', [AuthController::class, 'login'])->name('api.auth.login');
 
