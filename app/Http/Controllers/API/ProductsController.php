@@ -63,7 +63,7 @@ class ProductsController extends Controller
                 $imgName
             );
 
-            $imageUrl = env('APP_URL').'/product-images'.'/'.$imgName;
+            $imageUrl = 'https://sisig-barn-app.pwnp-ws.com/public/product-images'.'/'.$imgName;
 
             $data = $this->model->create([
                 'product_category_id' => $request->product_category_id,
