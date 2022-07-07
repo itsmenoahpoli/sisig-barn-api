@@ -13,7 +13,7 @@ class ProductCategoriesController extends Controller
 
     public function __construct()
     {
-        $this->model = ProductCategory::query();
+        $this->model = ProductCategory::query()->with('product_category');
     }
 
     /**
