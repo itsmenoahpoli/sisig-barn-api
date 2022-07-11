@@ -25,7 +25,7 @@ class ProductCategoriesController extends Controller
     {
         try
         {
-            $data = $this->model->with('products')->orderBy('id', 'desc')->get();
+            $data = $this->model->with('products')->orderBy('id', 'asc')->get();
 
             return response()->json($data, 200);
         } catch (Exception $e)
